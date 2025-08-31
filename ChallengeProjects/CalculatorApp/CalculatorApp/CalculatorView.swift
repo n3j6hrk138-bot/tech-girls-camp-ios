@@ -49,42 +49,86 @@ struct CalculatorView: View {
                     .frame(width: 100)
                     .multilineTextAlignment(.center)
             }
-            
-            // 計算ボタン
-            Button(action: {
-                // ここでボタンを押した時の挙動を記述
-                // 今回は calculateSum() というメソッド(関数)を呼び出しています
-                // 具体的な処理は calculateSum() 内に記述します
-                calculateSum()
-            }) {
-                Text("計算する")
+            VStack(spacing: 20){
+            Text("引き算電卓")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+            HStack(spacing: 10){
+                TextField("?", text: $firstNumber)
+                    .keyboardType(.numberPad)
+                    .frame(width: 60)
+                    .multilineTextAlignment(.center)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                Text("+")
+                    .font(.title)
+                
+                // 2つ目の入力フィールド
+                TextField("?", text: $secondNumber)
+                    .keyboardType(.numberPad)
+                    .frame(width: 60)
+                    .multilineTextAlignment(.center)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                Text("=")
+                    .font(.title)
+                
+                // 結果の表示
+                Text(result)
+                    .font(.title)
                     .fontWeight(.bold)
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.blue)
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
+                    .frame(width: 100)
+                    .multilineTextAlignment(.center)
+                
+                
             }
-            .padding(.horizontal)
-
-            Spacer()
+                    }
+            
         }
-        .padding()
+        
+        // 計算ボタン
+        Button(action: {
+            // ここでボタンを押した時の挙動を記述
+            // 今回は calculateSum() というメソッド(関数)を呼び出しています
+            // 具体的な処理は calculateSum() 内に記述します
+            calculateSum()
+        }) {
+            Text("計算する")
+                .fontWeight(.bold)
+                .padding()
+                .frame(maxWidth: .infinity)
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+        }
+        .padding(.horizontal)
+        
+        Spacer()
+            .padding()
         
         Divider()
         
         // TODO: - Challenge2
         // 引き算電卓も作ってみよう
         
+        
+        
     }
-    
     // 足し算の処理
     func calculateSum() {
         // TODO: - Challenge1
-        // ここに計算ロジックを記述し、計算結果を表示できるようにしてみよう
-
+        //
+        if let firstNumberInt = Int(firstNumber),let secondNumberInt = Int(secondNumber){
+            result = "\(firstNumberInt + secondNumberInt)"
+        } else {
+            result = "Error"
+            
+        }
     }
+    
+    
+    //ここに計算ロジックを記述し、計算結果を表示できるようにしてみよう
 }
+
 
 #Preview {
     CalculatorView()
